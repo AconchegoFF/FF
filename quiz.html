@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Viral</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #ff4d6d, #ff9966);
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+    .quiz-container {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        border-radius: 15px;
+        max-width: 400px;
+        margin: auto;
+    }
+    button {
+        background: #fff;
+        color: #ff4d6d;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        margin: 10px 0;
+        font-size: 16px;
+    }
+    button:hover {
+        background: #ffccd5;
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>🎯 Descobre o Teu Resultado!</h1>
+    <div id="quiz"></div>
+    <button id="next-btn">Próxima</button>
+    <div id="result" style="display:none; font-size: 20px; margin-top: 20px;"></div>
+</div>
+<script>
+const quizData = [
+    {
+        question: "Qual destas frutas preferes?",
+        options: ["🍓 Morango", "🍍 Ananás", "🍉 Melancia"],
+        answer: null
+    },
+    {
+        question: "Escolhe um animal:",
+        options: ["🐶 Cão", "🐱 Gato", "🦁 Leão"],
+        answer: null
+    },
+    {
+        question: "Se fosses viajar agora, para onde ias?",
+        options: ["🏝️ Praia", "🏔️ Montanha", "🏙️ Cidade"],
+        answer: null
+    }
+];let currentQuestion = 0;
+
+function loadQuestion() { const quizEl = document.getElementById('quiz'); quizEl.innerHTML = <h2>${quizData[currentQuestion].question}</h2> ${quizData[currentQuestion].options.map((opt, i) =><button onclick="selectAnswer('${opt}')">${opt}</button>).join('')} ; }
+
+function selectAnswer(answer) { quizData[currentQuestion].answer = answer; }
+
+document.getElementById('next-btn').addEventListener('click', () => { if (quizData[currentQuestion].answer === null) { alert("Escolhe uma opção!"); return; } currentQuestion++; if (currentQuestion < quizData.length) { loadQuestion(); } else { showResult(); } });
+
+function showResult() { document.getElementById('quiz').style.display = 'none'; document.getElementById('next-btn').style.display = 'none'; const resultEl = document.getElementById('result'); resultEl.style.display = 'block'; resultEl.innerHTML = ✨ O teu resultado: ${quizData.map(q => q.answer).join(', ')} ✨; }
+
+loadQuestion(); </script>
+
+</body>
+</html>
